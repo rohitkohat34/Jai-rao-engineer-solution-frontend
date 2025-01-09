@@ -60,7 +60,7 @@ const StoreContextProvider = (props) => {
 
   const fetchServiceList = async () => {
     try {
-      const response = await axios.get(url + "/api/service/list");
+      const response = await axios.get(url + "/api/services");
       setServiceList(response.data?.data || []); // Ensure data is defined and fallback to empty array
     } catch (error) {
       console.error("Error fetching service list:", error);
