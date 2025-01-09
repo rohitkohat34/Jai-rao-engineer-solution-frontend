@@ -1,0 +1,41 @@
+.header {
+  height: 34vw;
+  margin: 30px auto;
+  position: relative;
+}
+
+.carousel .slide img {
+  height: 30vw;
+  object-fit: cover;
+}
+
+.carousel .control-dots {
+  position: absolute;
+  bottom: 10px;
+}
+
+.carousel-image {
+  height: 50%;
+  width: 60%;
+  object-fit: cover;
+}
+
+
+
+@media (max-width: 1050px) {
+  .header-contents {
+    max-width: 45%;
+  }
+}
+
+@media (max-width: 750px) {
+  .header-contents {
+    max-width: 65%;
+  }
+  .header-contents p {
+    display: none;
+  }
+  .header-contents button {
+    padding: 2vw 4vw;
+  }
+}
