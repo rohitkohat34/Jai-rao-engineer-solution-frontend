@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './RefrigeratorService.css';
 import axios from 'axios'
 import { assets } from '../../assets/assets';
+import { StoreContext } from '../../context/StoreContext';
 
 const RefrigeratorService = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -19,6 +20,19 @@ const RefrigeratorService = () => {
     setPopupContent('');
   };
 
+  const { token } = useContext(StoreContext);
+  let decodedToken;
+  if (token) {
+    try {
+      decodedToken = jwtDecode(token);
+      console.log('Decoded token:', decodedToken);
+    } catch (error) {
+      console.error('Error decoding token:', error);
+    }
+  } else {
+    console.log('No token available');
+  }
+
   const addServiceToBackend = async (service) => {
     try {
       const response = await axios.post('http://localhost:4000/api/services', {
@@ -26,7 +40,7 @@ const RefrigeratorService = () => {
         price: service.price,
         rating: service.rating,
         category: 'Repair',  // Add appropriate category
-        userId: 'user_id_placeholder', // Replace with actual userId if available
+        userId: decodedToken.id, // Replace with actual userId if available
       });
       alert(`Service "${service.title}" added successfully!`);
       console.log(response.data);

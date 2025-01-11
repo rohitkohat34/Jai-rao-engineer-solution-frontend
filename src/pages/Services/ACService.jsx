@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios'
-
+import { jwtDecode } from 'jwt-decode';
 import './ACService.css';
 import { assets } from '../../assets/assets';
+import { StoreContext } from '../../context/StoreContext'
 const ACService = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [popupContent, setPopupContent] = useState('');
@@ -18,8 +19,18 @@ const ACService = () => {
     setIsPopupOpen(false);
     setPopupContent('');
   };
-
-
+  const { token } = useContext(StoreContext);
+  let decodedToken;
+  if (token) {
+    try {
+      decodedToken = jwtDecode(token);
+      console.log('Decoded token:', decodedToken);
+    } catch (error) {
+      console.error('Error decoding token:', error);
+    }
+  } else {
+    console.log('No token available');
+  }
 
   const addServiceToBackend = async (service) => {
     try {
@@ -28,8 +39,7 @@ const ACService = () => {
         price: service.price,
         rating: service.rating,
         category: 'Repair',
-        userId: '67712d55d11963089c52ce3b',
-        mobileNumber: '9876543210', // Replace with actual mobile number
+        userId: decodedToken.id,
       });
       alert(`Service "${service.title}" added successfully!`);
       console.log(response.data);
