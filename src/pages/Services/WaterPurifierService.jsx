@@ -24,7 +24,6 @@ const WaterPurifierService = () => {
   if (token) {
     try {
       decodedToken = jwtDecode(token);
-      console.log('Decoded token:', decodedToken);
     } catch (error) {
       console.error('Error decoding token:', error);
     }
