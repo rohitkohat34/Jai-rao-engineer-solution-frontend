@@ -58,6 +58,15 @@ const StoreContextProvider = (props) => {
     }
   };
 
+const updateFoodPrice = (id, newPrice) => {
+  setFoodList((prev) =>
+    prev.map((item) =>
+      item._id === id ? { ...item, price: newPrice } : item
+    )
+  );
+};
+
+
   const fetchServiceList = async () => {
     try {
       const response = await axios.get(url + "/api/service/list");

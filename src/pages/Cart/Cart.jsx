@@ -44,13 +44,7 @@ const formatCurrency = (amount) => {
             
           }
         })}
-        <div className='cart-items-title'>
-          <p>Services</p>
-          <p>Title</p>
-          <p>Price</p>
-          <p>Quantity</p>
-          <p>Total</p>
-        </div>
+        
         {service_list.map((service) => {
           if (cartItems[service._id] && cartItems[service._id].isService) {
             return (

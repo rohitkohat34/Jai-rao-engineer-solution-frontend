@@ -26,7 +26,7 @@ const RefrigeratorService = () => {
         price: service.price,
         rating: service.rating,
         category: 'Repair',  // Add appropriate category
-        userId: 'user_id_placeholder', // Replace with actual userId if available
+        userId: '67712d55d11963089c52ce3b', // Replace with actual userId if available
       });
       alert(`Service "${service.title}" added successfully!`);
       console.log(response.data);
