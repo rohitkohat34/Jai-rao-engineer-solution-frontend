@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import './WashingMachine.css';
 import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
 import { assets } from '../../assets/assets';
 import { StoreContext } from '../../context/StoreContext';
 const WashingMachine = () => {

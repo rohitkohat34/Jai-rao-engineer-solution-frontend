@@ -3,7 +3,7 @@ import './FoodItem.css';
 import { assets } from '../../assets/assets';
 import { StoreContext } from '../../context/StoreContext';
 
-const FoodItem = ({ id, name, price, description, image }) => {
+const FoodItem = ({ id, name, price, description, image, discount, finalPrice }) => {
   const { cartItems = {}, addToCart, removeFromCart, url } = useContext(StoreContext);
 
   // Safely access cartItems[id] with fallback to 0
@@ -47,7 +47,12 @@ const FoodItem = ({ id, name, price, description, image }) => {
           <img src={assets.rating_starts} alt="Rating stars" />
         </div>
         <p className="food-item-desc">{description}</p>
-        <p className="food-item-price">{formatPriceInRupees(price)}</p>
+        {
+          discount == 0 ?
+            <p className="food-item-price">{formatPriceInRupees(price)}</p>
+            :
+            <p className="food-item-price">{formatPriceInRupees(finalPrice)}</p>
+        }
       </div>
     </div>
   );
