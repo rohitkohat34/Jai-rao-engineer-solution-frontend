@@ -1,18 +1,25 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import './FoodItem.css';
 import { assets } from '../../assets/assets';
 import { StoreContext } from '../../context/StoreContext';
+import { FaTimes } from 'react-icons/fa'; // For close icon
 
 const FoodItem = ({ id, name, price, description, image, discount, finalPrice }) => {
   const { cartItems = {}, addToCart, removeFromCart, url } = useContext(StoreContext);
 
-  // Safely access cartItems[id] with fallback to 0
+  const [showPopup, setShowPopup] = useState(false); // State for popup visibility
+
   const itemQuantity = cartItems[id] || 0;
 
-  // Format the price directly as Indian Rupees
   const formatPriceInRupees = (priceInRupees) => {
     return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(priceInRupees);
   };
+
+  const openPopup = () => setShowPopup(true);
+  const closePopup = () => setShowPopup(false);
+
+  // Convert description into an array of points
+  const descriptionPoints = description.split(',').map((point) => point.trim());
 
   return (
     <div className="food-item">
