@@ -1,73 +1,67 @@
-import React, { useContext,useEffect,useState } from 'react'
-import './PlaceOrder.css'
-import { StoreContext } from '../../context/StoreContext'
+import React, { useContext, useEffect, useState } from 'react';
+import './PlaceOrder.css';
+import { StoreContext } from '../../context/StoreContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+
 const PlaceOrder = () => {
+  const { getTotalCartAmount, token, food_list, cartItems, url } = useContext(StoreContext);
+  const [data, setData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    street: "",
+    city: "",
+    state: "",
+    zipcode: "",
+    country: "",
+    phone: "",
+  });
+  const [paymentMethod, setPaymentMethod] = useState("Online");
 
-const {getTotalCartAmount,token,food_list,cartItems,url} = useContext(StoreContext);
-const [data,setData] = useState({
-  firstName:"",
-  lastName:"",
-  email:"",
-  street:"",
-  city:"",
-  state:"",
-  zipcode:"",
-  country:"",
-  phone:""
-})
+  const onChangeHandler = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setData((data) => ({ ...data, [name]: value }));
+  };
 
-const onChangeHandler = (event) => {
-  const name = event.target.name;
-  const value = event.target.value;
-  setData(data=>({...data,[name]:value}))
-}
+  const placeOrder = async (event) => {
+    event.preventDefault();
+    let orderItems = [];
+    food_list.forEach((item) => {
+      if (cartItems[item._id] > 0) {
+        let itemInfo = { ...item, quantity: cartItems[item._id] };
+        orderItems.push(itemInfo);
+      }
+    });
 
-const formatCurrency = (amount) => {
-  return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(amount);
-};
+    let orderData = {
+      address: data,
+      items: orderItems,
+      amount: getTotalCartAmount() + 2,
+      paymentMethod,
+    };
 
-const placeOrder = async (event) => {
-  event.preventDefault();
-  let orderItems = [];
-  food_list.map((item)=>{
-    if (cartItems[item._id]>0) {
-      let itemInfo = item;
-      itemInfo["quantity"] = cartItems[item._id];
-      orderItems.push(itemInfo)
+    let response = await axios.post(`${url}/api/order/place`, orderData, { headers: { token } });
+    if (response.data.success) {
+      if (paymentMethod === "Online") {
+        const { session_url } = response.data;
+        window.location.replace(session_url);
+      } else {
+        alert("Order placed successfully with COD!");
+        navigate("/myorders");
+      }
+    } else {
+      alert("Error placing order");
     }
-  }) 
-  let orderData = {
-    address: data,
-    items:orderItems,
-    amount:getTotalCartAmount()+2,
+  };
 
-  }
-  let response = await axios.post(url+"/api/order/place",orderData,{headers:{token}})
-  if (response.data.success) {
-    const {session_url} = response.data;
-    window.location.replace(session_url);
-}
-else {
-  alert("Error");
-}
+  const navigate = useNavigate();
 
-}
-
-const navigate = useNavigate();
-
-useEffect(()=>{
-  if (!token) {
-    navigate('/cart');
-  }
-  else if (getTotalCartAmount()===0)
-  {
-    navigate('/cart')
-  }
-
-},[token])
-
+  useEffect(() => {
+    if (!token) navigate('/cart');
+    else if (getTotalCartAmount() === 0) navigate('/cart');
+  }, [token]);
 
   return (
     <form onSubmit={placeOrder} className='place-order'>
@@ -90,30 +84,48 @@ useEffect(()=>{
         <input required name='phone' onChange={onChangeHandler} value={data.phone} type="text" placeholder='Phone' />
       </div>
       <div className='place-order-right'>
-      <div className='cart-total'>
+        <div className='cart-total'>
           <h2>Cart Total</h2>
           <div>
-          <div className='cart-total-details'>
+            <div className='cart-total-details'>
               <p>Subtotal</p>
-              <p>{formatCurrency(getTotalCartAmount())}</p>
+              <p>{getTotalCartAmount()}</p>
             </div>
             <hr />
             <div className='cart-total-details'>
               <p>Delivery Fee</p>
-              <p>{formatCurrency(getTotalCartAmount() === 0 ? 0 : 2)}</p>
+              <p>2</p>
             </div>
             <hr />
             <div className='cart-total-details'>
               <b>Total</b>
-              <b>{formatCurrency(getTotalCartAmount() === 0 ? 0 : getTotalCartAmount() + 2)}</b>
+              <b>{getTotalCartAmount() + 2}</b>
             </div>
-            
+          </div>
+          <div className='payment-method'>
+            <p>Select Payment Method:</p>
+            <div className='payment-buttons'>
+              <button
+                type="button"
+                className={`payment-btn ${paymentMethod === "Online" ? "active" : ""}`}
+                onClick={() => setPaymentMethod("Online")}
+              >
+                Online Payment
+              </button>
+              <button
+                type="button"
+                className={`payment-btn ${paymentMethod === "COD" ? "active" : ""}`}
+                onClick={() => setPaymentMethod("COD")}
+              >
+                Cash on Delivery
+              </button>
+            </div>
           </div>
           <button type='submit'>PROCEED TO PAYMENT</button>
         </div>
       </div>
     </form>
-  )
-}
+  );
+};
 
-export default PlaceOrder
+export default PlaceOrder;

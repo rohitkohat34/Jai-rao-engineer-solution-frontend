@@ -44,13 +44,7 @@ const Cart = () => {
 
           }
         })}
-        <div className='cart-items-title'>
-          <p>Services</p>
-          <p>Title</p>
-          <p>Price</p>
-          <p>Quantity</p>
-          <p>Total</p>
-        </div>
+        
         {console.log(service_list)}
         {service_list.map((service) => {
           console.log(service)

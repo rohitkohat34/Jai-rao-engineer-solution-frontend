@@ -2,27 +2,30 @@ import React, { useContext, useState } from 'react';
 import './FoodItem.css';
 import { assets } from '../../assets/assets';
 import { StoreContext } from '../../context/StoreContext';
-import { FaTimes } from 'react-icons/fa'; // For close icon
+import { FaTimes } from 'react-icons/fa';
 
-const FoodItem = ({ id, name, price, description, image }) => {
+const FoodItem = ({ id, name, price, description, image, discount, finalPrice }) => {
   const { cartItems = {}, addToCart, removeFromCart, url } = useContext(StoreContext);
-
-  const [showPopup, setShowPopup] = useState(false); // State for popup visibility
-
+  const [showPopup, setShowPopup] = useState(false);
   const itemQuantity = cartItems[id] || 0;
 
+  // Format price as INR
   const formatPriceInRupees = (priceInRupees) => {
+    if (isNaN(priceInRupees) || priceInRupees === null || priceInRupees === undefined) {
+      return '₹0.00';
+    }
     return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(priceInRupees);
   };
 
   const openPopup = () => setShowPopup(true);
   const closePopup = () => setShowPopup(false);
 
-  // Convert description into an array of points
+  // Split description into bullet points
   const descriptionPoints = description.split(',').map((point) => point.trim());
 
   return (
     <>
+      {/* Popup for full description */}
       {showPopup && (
         <div className="popup">
           <div className="popup-content">
@@ -31,12 +34,22 @@ const FoodItem = ({ id, name, price, description, image }) => {
             </button>
             <img className="popup-image" src={`${url}/images/${image}`} alt={name} />
             <h2 className="popup-title">{name}</h2>
-            <ul className="popup-description"><h5>Specifications :</h5>
+            <h5 className="popup-subtitle">Specifications:</h5>
+            <ul className="popup-description">
               {descriptionPoints.map((point, index) => (
                 <li key={index}>{point}</li>
               ))}
             </ul>
-            <p className="food-item-price">{formatPriceInRupees(price)}</p>
+            <p className="food-item-price">
+              {discount === 0 ? (
+                formatPriceInRupees(price)
+              ) : (
+                <>
+                  <span className="original-price">{formatPriceInRupees(price)}</span>
+                  <span className="final-price">{formatPriceInRupees(finalPrice)}</span>
+                </>
+              )}
+            </p>
             <div className="popup-counter">
               <img
                 onClick={() => removeFromCart(id)}
@@ -54,6 +67,7 @@ const FoodItem = ({ id, name, price, description, image }) => {
         </div>
       )}
 
+      {/* Food item card */}
       <div className="food-item">
         <div className="food-item-img-container">
           <img className="food-item-image" src={`${url}/images/${image}`} alt={name} />
@@ -86,12 +100,22 @@ const FoodItem = ({ id, name, price, description, image }) => {
             <img src={assets.rating_starts} alt="Rating stars" />
           </div>
           <div className="food-item-desc">
-            <p>{descriptionPoints.slice(0, 2).join(', ')}...</p>
+            {/* Show the first two points on the card */}
+            <p>{descriptionPoints.slice(0, 1).join(', ')}...</p>
             <button className="view-more-btn" onClick={openPopup}>
               View More
             </button>
           </div>
-          <p className="food-item-price">{formatPriceInRupees(price)}</p>
+          <p className="food-item-price">
+            {discount === 0 ? (
+              formatPriceInRupees(price)
+            ) : (
+              <>
+                <span className="original-price">{formatPriceInRupees(price)}</span>
+                <span className="final-price">{formatPriceInRupees(finalPrice)}</span>
+              </>
+            )}
+          </p>
         </div>
       </div>
     </>
