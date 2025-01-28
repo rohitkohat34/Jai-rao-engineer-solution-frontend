@@ -4,6 +4,7 @@ import { assets } from '../../assets/assets';
 import { StoreContext } from '../../context/StoreContext';
 import { FaTimes } from 'react-icons/fa';
 
+
 const FoodItem = ({ id, name, price, description, image, discount, finalPrice }) => {
   const { cartItems = {}, addToCart, removeFromCart, url } = useContext(StoreContext);
   const [showPopup, setShowPopup] = useState(false);
@@ -118,7 +119,7 @@ const FoodItem = ({ id, name, price, description, image, discount, finalPrice })
           </p>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
