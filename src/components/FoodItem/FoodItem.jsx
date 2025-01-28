@@ -119,7 +119,7 @@ const FoodItem = ({ id, name, price, description, image, discount, finalPrice })
           </p>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
