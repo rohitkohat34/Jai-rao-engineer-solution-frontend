@@ -4,6 +4,7 @@ import { jwtDecode } from 'jwt-decode';
 import './WaterPurifierService.css';
 import { assets } from '../../assets/assets';
 import { StoreContext } from '../../context/StoreContext';
+import image from "../../assets/images/water purifier.jpg"
 
 const WaterPurifierService = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -34,7 +35,7 @@ const WaterPurifierService = () => {
 
   const addServiceToBackend = async (service) => {
     try {
-      const response = await axios.post('http://localhost:4000/api/services', {
+      const response = await axios.post('http://localhost:3000/api/services', {
         title: service.title,
         price: service.price,
         rating: service.rating,
@@ -52,6 +53,13 @@ const WaterPurifierService = () => {
   const handleAddClick = (service) => {
     setSelectedService(service); // Set the selected service
     addServiceToBackend(service); // Send service to backend
+  };
+
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   const waterpurifierrepair = [
@@ -81,10 +89,10 @@ const WaterPurifierService = () => {
         <h1>Water Purifier Services
           <br />&amp; Repair</h1>
         <br />
-        <div className="warranty">Up to 180-day warranty on all repairs</div>
+        <div className="warranty">Up to 90-day warranty on all repairs</div>
         <br />
         <div className="services">
-          <div className="service">
+          <div className="service" onClick={() => scrollToSection('repair')}>
             <img
               alt="repair"
               src={assets.waterpurifierrepair}
@@ -92,14 +100,14 @@ const WaterPurifierService = () => {
             <p>Repair</p>
           </div>
 
-          <div className="service">
+          <div className="service" onClick={() => scrollToSection('service')}>
             <img
               alt="service"
               src={assets.waterpurifierservice}
             />
             <p>Services</p>
           </div>
-          <div className="service">
+          <div className="service" onClick={() => scrollToSection('installation')}>
             <img
               alt="install"
               src={assets.waterpurifierinstall}
@@ -107,13 +115,16 @@ const WaterPurifierService = () => {
             <p>Installation/<br />Uninstallation</p>
           </div>
         </div>
+        <div className="text-center mt-4">
+  <img className="img-fluid" style={{ width: "600px", height: "auto" }} src={image} alt="Service" />
+</div>
       </div>
       <div className="right">
-        <h2>Repair</h2>
+        <h2 id="repair">Repair</h2>
         <p>
           <strong>Water purifier check-up</strong>
         </p>
-        <p>Starts at ₹99</p>
+        <p>Starts at ₹299</p>
         <p>Complete check-up to identify issues before repair</p>
         <p className="details" onClick={() => openPopup(<div className="container">
           <h1>Water purifier check-up</h1>
@@ -163,11 +174,11 @@ const WaterPurifierService = () => {
           </div>)}>Add</button>
         </div>
         <div className="right1">
-          <h2>Service</h2>
+          <h2 id="service">Service</h2>
           <p>
             <strong>Water purifier filter check-up</strong>
           </p>
-          <p>Starts at ₹99</p>
+          <p>Starts at ₹399</p>
           <p>Filter & membrane check-up followed by filter replacement if required</p>
           <p className="details" onClick={() => openPopup(<div className="containers">
             <h1>Water purifier filter check-up</h1>
@@ -220,11 +231,11 @@ const WaterPurifierService = () => {
 
 
         <div className="right1">
-          <h2>Installation/Uninstallation</h2>
+          <h2 id="installation">Installation/Uninstallation</h2>
           <p>
             <strong>Water Purifier Installation</strong>
           </p>
-          <p>₹499</p>
+          <p>₹449</p>
 
           <p className="details" onClick={() => openPopup(<div className="containers">
             <h1>Water Purifier Installation</h1>
@@ -279,7 +290,7 @@ const WaterPurifierService = () => {
           <p>
             <strong>Water purifier Uninstallation</strong>
           </p>
-          <p>₹499 </p>
+          <p>₹299 </p>
 
           <p className="details" onClick={() => openPopup(<div className="containers">
             <h1>Water purifier Uninstallation</h1>

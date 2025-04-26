@@ -112,3 +112,63 @@ button[type='submit'] {
 button[type='submit']:hover {
   background: #0056b3;
 }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .place-order {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .place-order-left,
+  .place-order-right {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .multi-field {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  input {
+    font-size: 0.9rem;
+  }
+
+  .cart-total h2 {
+    font-size: 1.3rem;
+  }
+
+  .payment-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .payment-btn {
+    padding: 12px;
+    font-size: 1rem;
+  }
+
+  button[type='submit'] {
+    font-size: 1rem;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.2rem;
+  }
+
+  .cart-total h2 {
+    font-size: 1.2rem;
+  }
+
+  .payment-btn {
+    font-size: 0.9rem;
+  }
+
+  button[type='submit'] {
+    font-size: 0.9rem;
+  }
+}

@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import './WashingMachine.css';
 import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
-
+import image from '../../assets/images/washing-machine-repair-services.jpg'
 import { assets } from '../../assets/assets';
 import { StoreContext } from '../../context/StoreContext';
 const WashingMachine = () => {
@@ -34,7 +34,7 @@ const WashingMachine = () => {
 
   const addServiceToBackend = async (service) => {
     try {
-      const response = await axios.post('http://localhost:4000/api/services', {
+      const response = await axios.post('http://localhost:3000/api/services', {
         title: service.title,
         price: service.price,
         rating: service.rating,
@@ -52,6 +52,13 @@ const WashingMachine = () => {
   const handleAddClick = (service) => {
     setSelectedService(service); // Set the selected service
     addServiceToBackend(service); // Send service to backend
+  };
+
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   const washingmachineauto = [
@@ -81,25 +88,25 @@ const WashingMachine = () => {
         <h1>Washing Machine Services
           <br />&amp; Repair</h1>
         <br />
-        <div className="warranty">Up to 180-day warranty on all repairs</div>
+        <div className="warranty">Up to 90-day warranty on all repairs</div>
         <br />
         <div className="services">
-          <div className="service">
+          <div className="service"  onClick={() => scrollToSection('service')}>
             <img
               alt="service"
               src={assets.washingservice}
             />
-            <p>Service</p>
+            <p>Services</p>
           </div>
 
-          <div className="service">
+          <div className="service"  onClick={() => scrollToSection('repair')}>
             <img
               alt="repair"
               src={assets.washingrepair}
             />
             <p>Repair</p>
           </div>
-          <div className="service">
+          <div className="service"  onClick={() => scrollToSection('install')}>
             <img
               alt="install"
               src={assets.washingmachine}
@@ -108,13 +115,16 @@ const WashingMachine = () => {
               Uninstallation</p>
           </div>
         </div>
+        <div className="text-center mt-4">
+  <img className="img-fluid" style={{ width: "600px", height: "auto" }} src={image} alt="Service" />
+</div>
       </div>
       <div className="right">
-        <h2>Repair</h2>
+        <h2 id="repair">Repair</h2>
         <p>
           <strong>Fully automatic washing machine check-up (top load)</strong>
         </p>
-        <p>Starts at ₹99</p>
+        <p>Starts at ₹199</p>
         <p>Complete check-up to identify issues before repair</p>
         <p className="details" onClick={() => openPopup(<div className="container">
           <h1>Fully automatic washing machine check-up (top load)</h1>
@@ -168,7 +178,7 @@ const WashingMachine = () => {
           <p>
             <strong>Fully automatic washing machine check-up (front load)</strong>
           </p>
-          <p>Starts at ₹99</p>
+          <p>Starts at ₹199</p>
           <p>Complete check-up to identify issues before repair</p>
           <p className="details" onClick={() => openPopup(<div className="containers">
             <h1>Fully automatic washing machine check-up (front load)</h1>
@@ -223,7 +233,7 @@ const WashingMachine = () => {
           <p>
             <strong>Semi-automatic washing machine check-up</strong>
           </p>
-          <p>Starts at ₹99</p>
+          <p>Starts at ₹199</p>
           <p>Complete check-up to identify issues before repair</p>
           <p className="details" onClick={() => openPopup(<div className="containers">
             <h1>Semi-automatic washing machine check-up</h1>
@@ -276,11 +286,11 @@ const WashingMachine = () => {
 
 
         <div className="right1">
-          <h2>Installation</h2>
+          <h2 id="install">Installation</h2>
           <p>
             <strong>Washing machine Installation</strong>
           </p>
-          <p>₹499</p>
+          <p>₹349</p>
 
           <p className="details" onClick={() => openPopup(<div className="containers">
             <h1>Washing Machine Installation</h1>
@@ -335,7 +345,7 @@ const WashingMachine = () => {
           <p>
             <strong>Washing Machine Uninstallation</strong>
           </p>
-          <p>₹499 </p>
+          <p>₹349 </p>
 
           <p className="details" onClick={() => openPopup(<div className="containers">
             <h1>Washing Machine Uninstallation</h1>

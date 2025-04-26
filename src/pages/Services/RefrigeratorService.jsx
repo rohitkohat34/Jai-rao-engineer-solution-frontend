@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import './RefrigeratorService.css';
 import { jwtDecode } from 'jwt-decode';
 import axios from 'axios'
-
+import image from "../../assets/images/refrigerator service.jpg"
 import { assets } from '../../assets/assets';
 import { StoreContext } from '../../context/StoreContext';
 
@@ -36,7 +36,7 @@ const RefrigeratorService = () => {
 
   const addServiceToBackend = async (service) => {
     try {
-      const response = await axios.post('http://localhost:4000/api/services', {
+      const response = await axios.post('http://localhost:3000/api/services', {
         title: service.title,
         price: service.price,
         rating: service.rating,
@@ -56,6 +56,13 @@ const RefrigeratorService = () => {
     addServiceToBackend(service); // Send service to backend
   };
 
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   const refrigeratorservice = [
     { title: "Excess cooling (frost formation)", rating: 3.9, price: 199 },
     { title: "No cooling", rating: 3.9, price: 199 },
@@ -63,6 +70,8 @@ const RefrigeratorService = () => {
     { title: "Noise issue", rating: 3.9, price: 199 },
     { title: "Door issue", rating: 3.9, price: 199 },
     { title: "Water leakage", rating: 3.9, price: 499 },
+    { title: "Gas Charging", rating: 3.9, price: 999 },
+
   ]
 
   return (
@@ -71,9 +80,9 @@ const RefrigeratorService = () => {
         <h1>Refrigerator Services
           <br />&amp; Repair</h1>
         <br />
-        <div className="warranty">Up to 180-day warranty on all repairs</div>
+        <div className="warranty">Up to 90-day warranty on all repairs</div>
         <br />
-        <div className="services">
+        <div className="services" onClick={() => scrollToSection('single-door')}>
           <div className="service">
             <img
               alt="single door"
@@ -82,14 +91,14 @@ const RefrigeratorService = () => {
             <p>Single door</p>
           </div>
 
-          <div className="service">
+          <div className="service" onClick={() => scrollToSection('double-door')}>
             <img
               alt="double door"
               src={assets.doubledoorref}
             />
             <p>Double door</p>
           </div>
-          <div className="service">
+          <div className="service" onClick={() => scrollToSection('side-door')}>
             <img
               alt="AC unit being uninstalled"
               src={assets.sideref}
@@ -97,13 +106,16 @@ const RefrigeratorService = () => {
             <p>Side-by-side door</p>
           </div>
         </div>
+        <div className="text-center mt-4">
+  <img className="img-fluid" style={{ width: "600px", height: "auto" }} src={image} alt="Service" />
+</div>
       </div>
       <div className="right">
-        <h2>Single door</h2>
+        <h2 id="single-door">Single door</h2>
         <p>
           <strong>Single door refrigerator check-up</strong>
         </p>
-        <p>Starts at ₹99</p>
+        <p>Starts at ₹299</p>
         <p>Complete check-up to identify issues before repair</p>
         <p className="details" onClick={() => openPopup(<div className="container">
           <h1>Single door refrigerator check-up</h1>
@@ -153,11 +165,11 @@ const RefrigeratorService = () => {
           </div>)}>Add</button>
         </div>
         <div className="right1">
-          <h2>Double door</h2>
+          <h2 id="double-door">Double door</h2>
           <p>
             <strong>Double door refrigerator check-up(inverter)</strong>
           </p>
-          <p>Starts at ₹99</p>
+          <p>Starts at ₹299</p>
           <p>Complete check-up to identify issues before repair</p>
           <p className="details" onClick={() => openPopup(<div className="containers">
             <h1>Double door refrigerator check-up(inverter)</h1>
@@ -214,7 +226,7 @@ const RefrigeratorService = () => {
           <p>
             <strong>Double door refrigerator check-up (non-inverter)</strong>
           </p>
-          <p>Starts at ₹99</p>
+          <p>Starts at ₹299</p>
           <p>Complete check-up to identify issues before repair</p>
           <p className="details" onClick={() => openPopup(<div className="containers">
             <h1>Double door refrigerator check-up (non-inverter)</h1>
@@ -265,11 +277,11 @@ const RefrigeratorService = () => {
           </div>
         </div>
         <div className="right1">
-          <h2>Side-by-side door</h2>
+          <h2 id="side-door" >Side-by-side door</h2>
           <p>
             <strong>Side-by-side door refrigerator check-up</strong>
           </p>
-          <p>Starts at ₹99</p>
+          <p>Starts at ₹299</p>
           <p>Complete check-up to identify issues before repair</p>
           <p className="details" onClick={() => openPopup(<div className="containers">
             <h1>Side-by-side door refrigerator check-up</h1>

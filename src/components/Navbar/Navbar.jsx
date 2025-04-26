@@ -1,78 +1,95 @@
-import React, { useContext, useState } from 'react';
-import './Navbar.css';
-import { assets } from "../../assets/assets";
-import { Link, useNavigate } from 'react-router-dom';
-import { StoreContext } from '../../context/StoreContext';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "../../assets/css/style.css";
+import "../../assets/css/tiny-slider.css";
+import userIcon from "../../assets/images/user.svg";
+import cartIcon from "../../assets/images/cart.svg";
+import logo from "../../assets/images/WhatsApp Image 2024-11-19 at 13.32.21_689e0080 (1).jpg"; // Import the logo image
+import LoginPopup from "../LoginPopup/LoginPopup";
 
-const Navbar = ({ setShowLogin }) => {
-  const [menu, setMenu] = useState("menu");
-  const [showServicesDropdown, setShowServicesDropdown] = useState(false);
+const Navbar = () => {
+  const [isNavCollapsed, setIsNavCollapsed] = useState(true);
+  const [showLogin, setShowLogin] = useState(false);
+  const [showCartDropdown, setShowCartDropdown] = useState(false);
 
-  const { getTotalCartAmount, token, setToken } = useContext(StoreContext);
-  const navigate = useNavigate();
-
-  const logout = () => {
-    localStorage.removeItem("token");
-    setToken("");
-    navigate("/");
-  };
-
-  const handleServiceNavigation = (path) => {
-    setShowServicesDropdown(false); // Close dropdown after navigation
-    navigate(path);
-  };
+  const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
 
   return (
-    <div className='navbar'>
-      <Link to='/'><img src={assets.logo} alt="" className='logo' /></Link>
-      <ul className='navbar-menu'>
-        <Link to='/' onClick={() => setMenu("home")} className={menu === "home" ? "active" : ""}>Home</Link>
-        <a href='#explore-menu' onClick={() => setMenu("menu")} className={menu === "menu" ? "active" : ""}>Shop</a>
-        <div
-          className='services-menu-wrapper'
-          onClick={() => setShowServicesDropdown(!showServicesDropdown)}
+    <nav className="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="Furni navigation bar">
+      <div className="container">
+        {/* Navbar Brand with Logo */}
+        <Link className="navbar-brand d-flex align-items-center" to="/">
+          <img src={logo} alt="Logo" className="me-6" style={{ height: "70px" }} /> 
+        </Link>
+
+        <button
+          className="navbar-toggler"
+          type="button"
+          onClick={handleNavCollapse}
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarsFurni"
+          aria-controls="navbarsFurni"
+          aria-expanded={!isNavCollapsed}
+          aria-label="Toggle navigation"
         >
-          <a
-            href='#services'
-            className={menu === "services" ? "active" : ""}
-          >
-            Services
-          </a>
-          {showServicesDropdown && (
-            <ul className='services-dropdown'>
-              <li onClick={() => handleServiceNavigation('/Services/solar')}>Solar</li>
-              <li onClick={() => handleServiceNavigation('/Services/ac')}>AC</li>
-              <li onClick={() => handleServiceNavigation('Services/washingmachine')}>Washing Machine</li>
-              <li onClick={() => handleServiceNavigation('Services/waterpurifier')}>Water Purifier</li>
-              
-              <li onClick={() => handleServiceNavigation('Services/refrigerator')}>Refrigerator</li>
-              
-              
-            </ul>
-          )}
+          <span className="navbar-toggler-icon"></span>
+        </button>
+
+        <div className={`collapse navbar-collapse ${isNavCollapsed ? "" : "show"}`} id="navbarsFurni">
+          <ul className="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+            <li className="nav-item">
+              <Link className="nav-link" to="/">Home</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/shop">Shop</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/solar">Solar</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/Service">Services</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/blog">Blog</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/contact">Contact us</Link>
+            </li>
+          </ul>
+
+          <ul className="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+            {/* User Login Icon */}
+            <li>
+              <a className="nav-link" href="#" onClick={() => setShowLogin(true)}>
+                <img src={userIcon} alt="User" />
+              </a>
+            </li>
+
+            {/* Cart Dropdown */}
+            <li className="nav-item dropdown">
+              <a 
+                className="nav-link dropdown-toggle" 
+                href="#" 
+                id="cartDropdown" 
+                role="button" 
+                data-bs-toggle="dropdown" 
+                aria-expanded={showCartDropdown}
+                onClick={() => setShowCartDropdown(!showCartDropdown)}
+              >
+                <img src={cartIcon} alt="Cart" />
+              </a>
+              <ul className={`dropdown-menu dropdown-menu-end ${showCartDropdown ? "show" : ""}`} aria-labelledby="cartDropdown">
+                <li><Link className="dropdown-item" to="/cart">View Cart</Link></li>
+                <li><Link className="dropdown-item" to="/myorders">My Orders</Link></li>
+              </ul>
+            </li>
+          </ul>
         </div>
-        <a href='#footer' onClick={() => setMenu("contact-us")} className={menu === "contact-us" ? "active" : ""}>Contact-us</a>
-      </ul>
-      <div className='navbar-right'>
-        <img src={assets.search_icon} alt="" />
-        <div className='navbar-search-icon'>
-          <Link to='/cart'><img src={assets.basket_icon} alt="" /> </Link>
-          <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
-        </div>
-        {!token ? (
-          <button onClick={() => setShowLogin(true)}>Sign In</button>
-        ) : (
-          <div className='navbar-profile'>
-            <img src={assets.profile_icon} alt="" />
-            <ul className='nav-profile-dropdown'>
-              <li onClick={() => navigate('/myorders')}><img src={assets.bag_icon} alt="" /><p>Orders</p></li>
-              <hr />
-              <li onClick={logout}><img src={assets.logout_icon} alt="" /><p>Logout</p></li>
-            </ul>
-          </div>
-        )}
       </div>
-    </div>
+
+      {showLogin && <LoginPopup setShowLogin={setShowLogin} />}
+    </nav>
   );
 };
 

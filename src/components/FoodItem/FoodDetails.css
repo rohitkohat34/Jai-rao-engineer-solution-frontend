@@ -1,0 +1,113 @@
+.food-details-container {
+  max-width: 2100px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.food-image {
+  width: 100%;
+  max-height: 400px;
+  border-radius: 10px;
+  object-fit: cover;
+  transition: transform 0.4s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect */
+.food-image:hover {
+  transform: scale(1.05); /* Slight zoom-in effect */
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.text-container {
+  text-align: left;
+}
+
+.food-name {
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.food-description-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #fa1515;
+}
+
+.food-description {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.food-item-price {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 15px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.original-price {
+  text-decoration: line-through;
+  color: gray;
+  font-size: 18px;
+}
+
+.final-price {
+  color: #28a745;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.add-to-cart-button {
+  background-color: #ff6600;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.add-to-cart-button:hover {
+  background-color: #cc5200;
+}
+
+.view-more-button {
+  color: #007bff;
+  font-size: 18px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+.view-more-button:hover {
+  color: #0056b3;
+}
+
+.food-description li {
+  color: #1d3557; /* Change bullet points color (Dark Blue) */
+  font-weight: 600;
+  list-style-type: none; /* Removes default bullets */
+}
+
+.add-to-cart-button span {
+  font-size: 18px; /* Makes cart symbol bolder */
+  font-weight: bolder;
+}
+

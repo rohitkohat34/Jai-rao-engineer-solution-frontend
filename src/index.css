@@ -4,15 +4,12 @@
 *{
   padding: 0;
   margin: 0;
-  box-sizing: border-box;
+ 
   font-family: Outfit;
-  scroll-behavior: smooth;
+  scroll-behavior:smooth;
 }
 
-body{
-  min-height: 100vh;
-  background-color: whitesmoke;
-}
+
 
 a{
   text-decoration: none;
@@ -20,7 +17,7 @@ a{
 }
 
 .app{
-  width: 80%;
+  width: 100%;
   margin: auto;
 }
 

@@ -4,11 +4,12 @@ import { jwtDecode } from 'jwt-decode';
 import './ACService.css';
 import { assets } from '../../assets/assets';
 import { StoreContext } from '../../context/StoreContext'
+import image from "../../assets/images/acsale.jpg"
 const ACService = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [popupContent, setPopupContent] = useState('');
   const [selectedService, setSelectedService] = useState(null);
-  const [mobileNumber, setMobileNumber] = useState('');
+  const [invoiceUrl, setInvoiceUrl] = useState(null);
 
   const openPopup = (content) => {
     setPopupContent(content);
@@ -20,39 +21,58 @@ const ACService = () => {
     setPopupContent('');
   };
   const { token } = useContext(StoreContext);
-  let decodedToken;
+  let decodedToken = null;
+
   if (token) {
     try {
-      decodedToken = jwtDecode(token);
+      decodedToken = jwtDecode(token); // Decode the token
     } catch (error) {
       console.error('Error decoding token:', error);
     }
-  } else {
-    console.log('No token available');
   }
 
   const addServiceToBackend = async (service) => {
+    if (!decodedToken) {
+      alert('You need to be logged in to add a service.');
+      return; // Prevent sending request if user is not logged in
+    }
+
     try {
-      const response = await axios.post('http://localhost:4000/api/services', {
+      const response = await axios.post('http://localhost:3000/api/services', {
         title: service.title,
         price: service.price,
         rating: service.rating,
         category: 'Repair',
-        userId: decodedToken.id,
+        userId: decodedToken.id, // Send userId from the decoded token
       });
       alert(`Service "${service.title}" added successfully!`);
       console.log(response.data);
+      setSelectedService(response.data);
     } catch (error) {
       console.error('Error adding service:', error);
       alert(`Failed to add service. Error: ${error.response ? error.response.data.message : error.message}`);
     }
   };
 
+  
 
-  const handleAddClick = (service) => {
-    setSelectedService(service); // Set the selected service
-    addServiceToBackend(service); // Send service to backend
-  };
+
+
+
+
+const handleAddClick = async (service) => {
+  setSelectedService(service);
+  await addServiceToBackend(service);
+
+  
+};
+
+const scrollToSection = (sectionId) => {
+  const element = document.getElementById(sectionId);
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth' });
+  }
+};
 
 
 
@@ -97,24 +117,24 @@ const ACService = () => {
       <div className="left">
         <h1>AC Services &amp; Repair</h1>
 
-        <div className="warranty">Up to 180-day warranty on all repairs</div>
+        <div className="warranty">Up to 90-day warranty on all repairs</div>
         <br />
         <div className="services">
-          <div className="service">
+          <div className="service" onClick={() => scrollToSection('ac repair')}>
             <img
               alt="repair"
               src={assets.acrepair}
             />
             <p>Repair</p>
           </div>
-          <div className="service">
+          <div className="service"  onClick={() => scrollToSection('ac service')}>
             <img
               alt="Technician servicing an AC unit"
               src={assets.acservice}
             />
             <p>Service</p>
           </div>
-          <div className="service">
+          <div className="service" onClick={() => scrollToSection('ac install')}>
             <img
               alt="service"
               src={assets.acintallation}
@@ -122,17 +142,21 @@ const ACService = () => {
             <p>Installation/<br />Uninstallation</p>
           </div>
 
+        
         </div>
+        <div className="text-center mt-4">
+  <img className="img-fluid" style={{ width: "600px", height: "auto" }} src={image} alt="Service" />
+</div>
       </div>
       <div className="right">
         <h2>Repair &amp; Gas Refill</h2>
         <p>
           <strong>AC repair</strong>
         </p>
-        <p>Starts at ₹99</p>
+        <p>Starts at ₹299</p>
         <p>Detailed examination to find problems before fixing them</p>
         <p className="details" onClick={() => openPopup(<div className="containers">
-          <h1>AC Repair</h1>
+          <h1 id="ac repair">AC Repair</h1>
           <br />
           <hr className="horizontal-line" />
           <br />
@@ -173,6 +197,9 @@ const ACService = () => {
                   </div>
                   <div className="price">₹{service.price}</div>
                   <button className="add-button" onClick={() => handleAddClick(service)}>Add</button>
+                  
+
+
                 </div>
               ))}
             </div>
@@ -183,7 +210,7 @@ const ACService = () => {
           <p>
             <strong>AC gas leak fix & refill</strong>
           </p>
-          <p>Starts at ₹99</p>
+          <p>Starts at ₹1999</p>
           <p>Before gas is refilled, a thorough inspection is done to find and repair any leaks.</p>
           <p className="details" onClick={() => openPopup(<div className="containers">
             <h1>AC gas leak fix & refill</h1>
@@ -234,14 +261,15 @@ const ACService = () => {
           </div>
         </div>
         <div className="right1">
-          <h2>Services</h2>
+          <h2 id="ac service">Services</h2>
           <p>
-            <strong>Power saver AC service</strong>
+            <strong>Foam-jet service </strong>
           </p>
-          <p>Starts at ₹99</p>
+          <p>Starts at ₹449</p>
           <p>Complete indoor unit cleaning with a foam-jet sprayer</p>
+          <p>Applicable for both window & split ACs</p>
           <p className="details" onClick={() => openPopup(<div className="containers">
-            <h1>Power saver AC service</h1>
+            <h1>Foam-jet service </h1>
             <br />
             <hr className="horizontal-line" />
             <br />
@@ -288,12 +316,13 @@ const ACService = () => {
             </div>)}>Add</button>
           </div>
         </div>
+        
         <div className="right1">
 
           <p>
             <strong>Anti-rust deep clean AC service</strong>
           </p>
-          <p>Starts at ₹99</p>
+          <p>Starts at ₹449</p>
           <p>uses an anti-rust spray to protect and completely clean your air conditioner, preventing gas leaks.</p>
           <p className="details" onClick={() => openPopup(<div className="containers">
             <h1>Anti-rust deep clean AC service</h1>
@@ -344,11 +373,11 @@ const ACService = () => {
           </div>
         </div>
         <div className="right1">
-          <h2>Installation</h2>
+          <h2 id="ac install">Installation</h2>
           <p>
             <strong>Ac Installation</strong>
           </p>
-          <p>₹499 </p>
+          <p>₹1199 </p>
 
           <p className="details" onClick={() => openPopup(<div className="containers">
             <h1>AC Installation</h1>
@@ -403,7 +432,7 @@ const ACService = () => {
           <p>
             <strong>Ac Uninstallation</strong>
           </p>
-          <p>₹499 </p>
+          <p>₹649 </p>
 
           <p className="details" onClick={() => openPopup(<div className="containers">
             <h1>AC Uninstallation</h1>

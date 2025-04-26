@@ -1,0 +1,102 @@
+/* Full Page Background */
+.about-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: whitesmoke;
+  padding: 50px;
+}
+
+/* Main Content Layout */
+.about-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 50px;
+  max-width: 1100px;
+  width: 100%;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  
+  
+  transition: transform 0.3s ease-in-out;
+}
+
+.about-content:hover {
+  transform: scale(1.02);
+}
+
+/* Image Section */
+.about-image img {
+  width: 450px;
+  height: auto;
+  border-radius: 10px;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease-in-out;
+}
+
+.about-image img:hover {
+  transform: scale(1.05);
+}
+
+/* Text Section */
+.about-text {
+  flex: 1;
+  color: #231212;
+  max-width: 500px;
+}
+
+.about-title {
+  font-size: 38px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #ffcc00;
+}
+
+.about-description {
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 15px;
+  color: #090202;
+}
+
+/* Shop Now Button */
+.shop-now-btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 25px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #121212;
+  background: #ffcc00;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out, transform 0.2s;
+}
+
+.shop-now-btn:hover {
+  background: #e6b800;
+  transform: translateY(-3px);
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+  .about-content {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .about-image img {
+    width: 100%;
+    max-width: 350px;
+  }
+
+  .shop-now-btn {
+    width: 100%;
+  }
+}

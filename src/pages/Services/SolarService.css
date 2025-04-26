@@ -640,4 +640,403 @@ th {
 }
 
 
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  width: 90%;
+  max-width: 800px;
+  background-color: white;
+  border: 2px solid #1e40af; /* Blue border */
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Logo */
+.logo-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  width: 100px;
+  height: auto;
+}
+
+/* Company Details */
+.company-details {
+  flex: 2;
+  background-color: #bfdbfe; /* Light Blue */
+  padding: 16px;
+  border-radius: 5px;
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.highlight {
+  color: #dc2626; /* Red */
+  font-weight: bold;
+}
+
+.web-link {
+  color: #1e40af; /* Blue */
+  text-decoration: underline;
+}
+
+/* Date & QN Section */
+.date-qn {
+  text-align: right;
+  margin-top: 16px;
+  font-weight: bold;
+}
+
+
+.title-section {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.solar-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.subsidy-box {
+  background-color: #facc15; /* Yellow-300 */
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 600px;
+}
+
+.subsidy-amount {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.subsidy-note {
+  margin-top: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  line-height: 1.5;
+}
+
+
+
+.exclusion-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 16px;
+  text-align: start;
+}
+
+.exclusion-text {
+  margin-bottom: 10px;
+  font-size: 1rem;
+  text-align: start;
+}
+
+.exclusion-list {
+  list-style-type: disc;
+  padding-left: 20px;
+  text-align: start;
+}
+
+.exclusion-list li {
+  margin-bottom: 8px;
+  font-size: 1rem;
+}
+
+.stamp-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.stamp-image {
+  width: 200px;
+  height: 100px;
+  object-fit: contain;
+}
+
+.details-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.contact-container {
+  margin-top: 16px;
+}
+
+.contact-box {
+  background-color: #facc15; /* Yellow-300 */
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.content {
+  color: #000000;
+  font-family: sans-serif;
+}
+
+.title {
+  font-size: 1.125rem; /* text-lg */
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.list {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+.content {
+  text-align: left;
+  padding: 1.5rem;
+  background: #fff;
+ 
+  
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: end;
+  width: 90%;
+  max-width: 1000px;
+  
+ 
+  padding: 16px;
+  
+  
+}
+
+/* Logo */
+.logo-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  width: 100px;
+  height: auto;
+}
+
+/* Company Details */
+.company-details {
+  flex: 2;
+
+  color: #000;
+  padding: 16px;
+  
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.address {
+  margin-bottom: 8px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.web-link {
+  color: #facc15; /* Yellow */
+  text-decoration: underline;
+}
+
+/* Date & QN Section */
+.date-qn {
+  text-align: right;
+  margin-top: 16px;
+  font-weight: bold;
+}
+
+
+.bank-card {
+  
+  padding: 20px;
+  
+  width: 100%;
+  
+  text-align: left;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.image-container {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 16px;
+}
+
+
+
+.details p {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.stamp img {
+  width: 120px;
+  height: 120px;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: start;
+}
+
+.list {
+  list-style-type: disc;
+  padding-left: 20px;
+  margin-bottom: 20px;
+}
+
+.list li {
+  margin-bottom: 5px;
+  text-align: start;
+}
+
+/* General Styles */
+
+.list {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.list li {
+  margin-bottom: 0.5rem;
+}
+
+
+/* Titles */
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+
+
+/* Header Section */
+.header {
+  display: flex;
+  align-items: center;
+  border-bottom: 4px solid black;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+}
+
+.logo {
+  width: 100px;
+  height: 100px;
+  margin-right: 15px;
+}
+
+.company-details h1 {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.company-details p {
+  font-size: 14px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.link {
+  color: blue;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+/* Date & QN */
+.date-qn {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+/* Proposal Heading */
+.proposal-heading {
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #2563eb;
+  margin-bottom: 15px;
+}
+
+/* Solar Image */
+.solar-image {
+  width: 100%;
+  height: auto;
+  margin-bottom: 15px;
+}
+
+/* Proposal Message */
+.proposal-text {
+  text-align: center;
+  font-size: 16px;
+  color: #2563eb;
+  margin-bottom: 15px;
+}
+
+/* Contact Info */
+.contact-info {
+  text-align: center;
+  font-size: 14px;
+}
+
+.email {
+  color: #fbbf24;
+  text-decoration: none;
+}
+
+.email:hover {
+  text-decoration: underline;
+}
+
 
