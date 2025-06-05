@@ -9,11 +9,11 @@
 
 .image-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
 }
 
-.food-image {
+.food-image.main-image {
   width: 100%;
   max-height: 400px;
   border-radius: 10px;
@@ -21,10 +21,32 @@
   transition: transform 0.4s ease, box-shadow 0.3s ease;
 }
 
-/* Hover effect */
-.food-image:hover {
-  transform: scale(1.05); /* Slight zoom-in effect */
+.food-image.main-image:hover {
+  transform: scale(1.05);
   box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.thumbnail-container {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.thumbnail-image {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 5px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: border 0.3s ease;
+}
+
+.thumbnail-image:hover,
+.thumbnail-image.selected-thumbnail {
+  border-color: #007bff;
 }
 
 .text-container {
@@ -47,6 +69,14 @@
   font-size: 16px;
   color: #666;
   margin-bottom: 15px;
+  padding-left: 0;
+}
+
+.food-description li {
+  list-style-type: none;
+  margin-bottom: 5px;
+  color: #1d3557;
+  font-weight: 600;
 }
 
 .food-item-price {
@@ -100,14 +130,7 @@
   color: #0056b3;
 }
 
-.food-description li {
-  color: #1d3557; /* Change bullet points color (Dark Blue) */
-  font-weight: 600;
-  list-style-type: none; /* Removes default bullets */
-}
-
 .add-to-cart-button span {
-  font-size: 18px; /* Makes cart symbol bolder */
+  font-size: 18px;
   font-weight: bolder;
 }
-

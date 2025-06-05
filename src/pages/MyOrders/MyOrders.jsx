@@ -77,7 +77,19 @@ const MyOrders = () => {
             ))}</p>
             <p>{formatCurrency(order.amount)}</p>
             <p>Items: {order.items.length}</p>
-            <p><span>&#x25cf;</span> <b>{order.status}</b></p>
+            <p>
+  <span
+    style={{
+      color: order.status === "Canceled" ? "red" :
+             order.status === "Delivered" ? "green" :
+             "#f39c12",
+      fontWeight: "bold"
+    }}
+  >
+    ● {order.status}
+  </span>
+</p>
+
             
             {!order.canceled && order.status !== "Canceled" ? (
               <>

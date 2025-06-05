@@ -27,6 +27,8 @@ import SolarService from './pages/Services/SolarService'
 import WashingMachineService from './pages/Services/WashingMachineService'
 import WaterPurifierService from './pages/Services/WaterPurifierService'
 import Refrigeratorservice from './pages/Services/RefrigeratorService'
+
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./assets/css/style.css";
 

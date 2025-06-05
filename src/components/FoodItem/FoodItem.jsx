@@ -11,7 +11,25 @@ const FoodItem = ({ item }) => {
     return null;
   }
 
-  const { _id, name, finalPrice, image, discount, price, category, brand } = item;
+  const {
+    _id,
+    name,
+    finalPrice,
+    discount,
+    price,
+    category,
+    brand,
+    availability,
+    images,
+    image, // fallback for older data
+  } = item;
+
+  // ✅ Use the first image from images array or fallback to image string
+  const displayImage = Array.isArray(images) && images.length > 0
+    ? `http://localhost:3000/images/${images[0]}`
+    : image
+      ? `http://localhost:3000/images/${image}`
+      : "http://localhost:3000/images/default.jpg"; // Optional fallback
 
   const formatPriceInRupees = (priceInRupees) => {
     return new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR" }).format(priceInRupees);
@@ -27,17 +45,20 @@ const FoodItem = ({ item }) => {
       <div className="food-item-img-container">
         <Card.Img
           variant="top"
-          src={`http://localhost:3000/images/${image}`}
+          src={displayImage}
           className="food-item-image img-fluid"
           alt={name}
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = "http://localhost:3000/images/default.jpg"; // fallback if broken
+          }}
         />
       </div>
       <Card.Body className="d-flex flex-column justify-content-between">
         <Card.Title className="text-truncate">{name}</Card.Title>
         <Card.Text className="text-muted">
-  {category} - {brand !== "unknown" ? brand : "No Brand"}
-</Card.Text>
-
+          {category} - {brand !== "unknown" ? brand : "No Brand"}
+        </Card.Text>
 
         <p className="food-item-price">
           {discount === 0 ? (
@@ -48,6 +69,10 @@ const FoodItem = ({ item }) => {
               <span className="final-price">{formatPriceInRupees(finalPrice)}</span>
             </>
           )}
+        </p>
+
+        <p className={`food-item-availability ${availability ? "available" : "out-of-stock"}`}>
+          {availability ? "In Stock" : "Out of Stock"}
         </p>
 
         <Button variant="primary" className="view-details-btn" onClick={handleNavigation}>

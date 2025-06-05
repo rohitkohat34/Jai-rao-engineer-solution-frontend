@@ -62,4 +62,16 @@
   }
 }
 
+.food-item-availability {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.food-item-availability.available {
+  color: green;
+}
+
+.food-item-availability.out-of-stock {
+  color: red;
+}
 

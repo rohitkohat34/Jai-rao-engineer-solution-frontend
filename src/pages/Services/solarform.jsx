@@ -1,6 +1,5 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Form, Button, Container } from "react-bootstrap";
-import StoreContextProvider from "../../context/StoreContext";
 
 const SolarForm = ({ onClose }) => {
   const [formData, setFormData] = useState({
@@ -9,9 +8,7 @@ const SolarForm = ({ onClose }) => {
     phone: "",
     address: "",
     message: "",
-  }); 
-
-  
+  });
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -27,6 +24,20 @@ const SolarForm = ({ onClose }) => {
     setError("");
 
     try {
+      const response = await fetch("http://localhost:3000/api/inquiries/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to submit inquiry. Please try again later.");
+      }
+
+      const data = await response.json();
+
       alert("Inquiry submitted successfully!");
       setPdfVisible(true); // Show the download button after form submission
 
@@ -48,7 +59,7 @@ const SolarForm = ({ onClose }) => {
   };
 
   const handleDownload = () => {
-    let pathToPdf = 'solar quotation.pdf'
+    let pathToPdf = 'solar_quotation.pdf';
     const pdfPath = `../../../public/${pathToPdf}`; // Path inside public folder
     const link = document.createElement("a");
     link.href = pdfPath;
